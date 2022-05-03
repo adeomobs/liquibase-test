@@ -13,24 +13,7 @@ String TERRAFORM_CREDS = 'myapp/terraform-ci-deploy-sdlc'
 String DB_USERNAME_PREFIX = 'LIQUIBASE_COMMAND_USERNAME'
 String DB_PASSWORD_PREFIX = 'LIQUIBASE_COMMAND_PASSWORD'
 
-// Vault Plugin Configuration
-def vaultCredentials
-def vaultConfiguration = [
-         vaultUrl: VAULT_ADDR,
-         vaultCredentialId: manageVaultTokenId,
-         engineVersion: 1,
- ]
 
-// // Vault Path-to-Variable Mapping
- def vaultSecrets = [
-         [
-                 path: "${VAULT_PATH}/${TERRAFORM_CREDS}",   // ITAM shared
-                 secretValues: [
-                         [envVar: 'LIQUIBASE_COMMAND_USERNAME', vaultKey: 'aws_access_key_id'],
-                         [envVar: 'LIQUIBASE_COMMAND_PASSWORD', vaultKey: 'aws_secret_access_key'],
-                 ],
-         ],
- ]
 
 //-------------------------------------new code-----------------------------------------------------------------------------
 def liquibase_creds = [
@@ -110,25 +93,30 @@ pipeline {
     stages {
         stage('Test Vault Accesss') {
             steps {
-                withCredentials([usernamePassword(
-                            credentialsId: 'ccs-aws-vault-reader',
-                            usernameVariable: 'VAULT_USERNAME',
-                            passwordVariable: 'VAULT_PASSWORD'
-                        )]) {
-                            script {
-                                echo 'hello this is about to get a token'
-                          // Get a token
-                                def vaultToken = RgaVaultLdap.token(this, env.VAULT_USERNAME, env.VAULT_PASSWORD)
-                                echo "${vaultToken}"
-                                // Read individual secrets
-                                def secret = RgaVaultLdap.secret(this, vaultToken, '/v1/secret/ccsaws/nonprod/delete-me', 'value')
-                                echo "${secret}"
-                                def collection = RgaVaultLdap.listPaths(this, vaultToken, '/v1/secret/ccsaws/nonprod')
-                                echo "${collection}"
+              // Vault Plugin Configuration
+              def vaultCredentials
+              def vaultConfiguration = [
+                       vaultUrl: VAULT_ADDR,
+                       vaultCredentialId: manageVaultTokenId,
+                       engineVersion: 1,
+               ]
 
+              // // Vault Path-to-Variable Mapping
+               def vaultSecrets = [
+                       [
+                               path: "${VAULT_PREFIX}/secret/list/ccsaws/nonprod",
+                               secretValues: [
+                                       [envVar: 'test', vaultKey: 'LIQUIBASE_COMMAND_USERNAME'],
+                                       [envVar: 'test', vaultKey: 'LIQUIBASE_COMMAND_PASSWORD'],
+                               ],
+                       ],
+               ]
+      
+             
+               // inside this block your credentials will be available as env variables
+               withVault([configuration: configuration, vaultSecrets: secrets]) {
+                   sh 'echo $test'
                }
-           }
-        
         }
     }
 
