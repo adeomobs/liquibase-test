@@ -20,25 +20,8 @@ pipeline {
         stage('Test Vault Accesss') {
             steps {
                 script {
-                  // Vault Plugin Configuration
-                  def vaultCredentials
-                  def vaultConfiguration = [
-                           vaultUrl: VAULT_ADDR,
-                           vaultCredentialId: manageVaultTokenId,
-                           engineVersion: 1,
-                   ]
-
-                  // // Vault Path-to-Variable Mapping
-                   def vaultSecrets = [
-                           [
-                                   path: "${VAULT_PATH}",
-                                   secretValues: [
-                                           [envVar: 'test', vaultKey: 'username']
-                                   ],
-                           ],
-                   ]
-                
-                sh 'echo blink'
+                    withVault(configuration:[timeout: 60, vaultCredentialId: manageVaultTokenId, vaultUrl: VAULT_ADDR,], vaultSecrets: [[path: "${VAULT_PATH}", secretValues: [[envVar: 'test', vaultKey: "username"]]]])   
+                sh 'echo $username'
                 }
             }
         }
