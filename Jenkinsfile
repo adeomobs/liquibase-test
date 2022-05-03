@@ -33,12 +33,12 @@ pipeline {
                            [
                                    path: "${VAULT_PATH}",
                                    secretValues: [
-                                           [envVar: 'test', vaultKey: 'username'],
+                                           [envVar: 'test', vaultKey: 'username']
                                    ],
                            ],
                    ]
                 
-                sh 'echo $usernames'
+                sh 'echo blink'
                 }
             }
         }
