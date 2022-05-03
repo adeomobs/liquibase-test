@@ -37,7 +37,7 @@ pipeline {
                            ],
                    ]
                 
-                sh 'echo $username'
+                sh 'echo $usernames'
                 }
             }
         }
