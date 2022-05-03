@@ -19,7 +19,7 @@ pipeline {
         stage('Test Vault Accesss') {
             steps {
                 script{
-                    withVault(configuration:[timeout: 60, vaultCredentialId: 'vault-token-id', vaultUrl: VAULT_ADDR, engineVersion: 1], vaultSecrets: [[path: "${VAULT_PATH}", secretValues: [[envVar: "demoTest", vaultKey: "username"]]]]) 
+                    withVault(configuration:[timeout: 60, vaultCredentialId: 'hvs.jus8sOTNEN4yeSVg7TlS70Oy', vaultUrl: VAULT_ADDR, engineVersion: 1], vaultSecrets: [[path: "${VAULT_PATH}", secretValues: [[envVar: "demoTest", vaultKey: "username"]]]]) 
                     {
                         def result = readJSON text: demoTest
                         sh 'echo result.username'
