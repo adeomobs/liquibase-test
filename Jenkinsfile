@@ -75,7 +75,7 @@ def region = 'us-east-1'  // default region
 def env_choices = env.JENKINS_URL.contains('https://ccs-prod-ci.desapp-st1.rgare.net') ? ['prod'] : ['poc', 'play','dev', 'test']
 
 pipeline {
-    agent { any }
+    agent any
     options {
         timestamps()
         buildDiscarder(logRotator(daysToKeepStr: '1095'))   // 3 years
