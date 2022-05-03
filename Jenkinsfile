@@ -1,8 +1,8 @@
- *===========================================
- *NAME: Jenkinsfile
- *DESCRIPTION: Jenkinsfile
- *=================================================================================================================
- */
+ //===========================================
+ //NAME: Jenkinsfile
+ //DESCRIPTION: Jenkinsfile
+ //=================================================================================================================
+ //*/
 library identifier: 'lib@master', retriever: modernSCM(
 [$class : 'GitSCMSource', remote: 'git@github.com:rgare/rga-deployment.git',
 credentialsId: 'jenkins-autokeygen-rga-deployment', includes: '*'])
