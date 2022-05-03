@@ -21,6 +21,7 @@ pipeline {
             steps {
                 script {
                   // Vault Plugin Configuration
+                  def vaultCredentials
                   def vaultConfiguration = [
                            vaultUrl: VAULT_ADDR,
                            vaultCredentialId: manageVaultTokenId,
