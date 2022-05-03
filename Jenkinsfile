@@ -19,27 +19,28 @@ pipeline {
         
         stage('Test Vault Accesss') {
             steps {
-              // Vault Plugin Configuration
-              def vaultCredentials
-              def vaultConfiguration = [
-                       vaultUrl: VAULT_ADDR,
-                       vaultCredentialId: manageVaultTokenId,
-                       engineVersion: 1,
-               ]
+                script {
+                  // Vault Plugin Configuration
+                  def vaultConfiguration = [
+                           vaultUrl: VAULT_ADDR,
+                           vaultCredentialId: manageVaultTokenId,
+                           engineVersion: 1,
+                   ]
 
-              // // Vault Path-to-Variable Mapping
-               def vaultSecrets = [
-                       [
-                               path: "${VAULT_PATH}",
-                               secretValues: [
-                                       [envVar: 'test', vaultKey: 'username'],
-                               ],
-                       ],
-               ]
+                  // // Vault Path-to-Variable Mapping
+                   def vaultSecrets = [
+                           [
+                                   path: "${VAULT_PATH}",
+                                   secretValues: [
+                                           [envVar: 'test', vaultKey: 'username'],
+                                   ],
+                           ],
+                   ]
                 
                 sh 'echo $username'
+                }
             }
-    }
+        }
 
-}
+    }
 }
