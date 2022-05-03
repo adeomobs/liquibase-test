@@ -1,4 +1,4 @@
-String manageVaultTokenId = 'my-vault-cred'
+String manageVaultTokenId = 'vault-id'
 String VAULT_ADDR = 'http://127.0.0.1:8200/ui/vault/secrets'
 String VAULT_PREFIX = '/ui/vault/secrets'   // No trailing slash
 String VAULT_PATH = "${VAULT_PREFIX}/secret/data/demoTest"   
