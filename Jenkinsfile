@@ -6,7 +6,7 @@
 // TO USE VAULT TO STORE YOUR IAM CREDENTIALS (RECOMMENDED), USE THIS BLOCK OF CODE.
 // -------- ALSO SEE SECTION BELOW MARKED WITH 'DANGER WILL ROBINSON' --------------
 String manageVaultTokenId = 'ccs-aws-vault-reader'
-String VAULT_ADDR = 'https://serviceregistry.rgare.net:8201'
+String VAULT_ADDR = 'http://127.0.0.1:8200'
 String VAULT_PREFIX = '/ui/vault/secrets'   // No trailing slash
 String VAULT_PATH = "${VAULT_PREFIX}/secret/list/ccsaws/nonprod"   // No trailing slash
 String TERRAFORM_CREDS = 'myapp/terraform-ci-deploy-sdlc'
