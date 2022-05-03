@@ -1,4 +1,4 @@
-String manageVaultTokenId = 'vault-token-id'
+String manageVaultTokenId = 'vault-token-2'
 String VAULT_ADDR = 'http://127.0.0.1:8200'
 String VAULT_PATH = "/ui/vault/secrets/secret/demoTest"   
 
@@ -19,7 +19,7 @@ pipeline {
         stage('Test Vault Accesss') {
             steps {
                 script{
-                    withVault(configuration:[timeout: 60, vaultCredentialId: 'hvs.jus8sOTNEN4yeSVg7TlS70Oy', vaultUrl: VAULT_ADDR, engineVersion: 1], vaultSecrets: [[path: "${VAULT_PATH}", secretValues: [[envVar: "demoTest", vaultKey: "username"]]]]) 
+                    withVault(configuration:[timeout: 60, vaultCredentialId: 'vault-token-2', vaultUrl: VAULT_ADDR, engineVersion: 1], vaultSecrets: [[path: "${VAULT_PATH}", secretValues: [[envVar: "demoTest", vaultKey: "username"]]]]) 
                     {
                         def result = readJSON text: demoTest
                         sh 'echo result.username'
