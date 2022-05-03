@@ -19,12 +19,10 @@ pipeline {
         
         stage('Test Vault Accesss') {
             steps {
-                script {
                     withVault(configuration:[timeout: 60, vaultCredentialId: manageVaultTokenId, vaultUrl: VAULT_ADDR,], vaultSecrets: [[path: "${VAULT_PATH}", secretValues: [[envVar: 'test', vaultKey: "username"]]]]) 
                     {
                         sh 'echo $username'
                     }
-                }
             }
         }
 
