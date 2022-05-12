@@ -1,7 +1,7 @@
 
 
 def secrets = [
-  [path: 'secrets/kv-v2/github', engineVersion: 2, secretValues: [
+  [path: 'secret/jenkins/github', engineVersion: 2, secretValues: [
     [envVar: 'PRIVATE_TOKEN', vaultKey: 'private-token'],
     [envVar: 'PUBLIC_TOKEN', vaultKey: 'public-token'],
     [envVar: 'API_KEY', vaultKey: 'api-key']]],
